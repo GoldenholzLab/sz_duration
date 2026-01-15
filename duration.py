@@ -85,11 +85,11 @@ def read_seizuretracker_csv(file_path):
     # Define seizure type substitutions
     type_substitutions = {
         "Secondarily Generalized": "Focal to bilateral tonic clonic*",
-        "Complex Partial": "Focal impaired awareness*",
-        "Aura Only": "Focal aware*",
+        "Complex Partial": "Focal impairedconsciousness*",
+        "Aura Only": "Focal preserved consciousness*",
         "Other": "Unknown*",
         "Unknown": "Unknown*",
-        "Simple Partial": "Focal aware*"
+        "Simple Partial": "Focal preserved consciousness*"
     }
     # Apply substitutions
     seizures_df['type'] = seizures_df['type'].replace(type_substitutions)
