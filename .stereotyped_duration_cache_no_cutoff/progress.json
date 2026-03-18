@@ -1,0 +1,44 @@
+{
+  "aggregation_complete": true,
+  "chunk_rows": 250000,
+  "final_ready": true,
+  "invalid_datetime_rows": 145097,
+  "last_completed_stage": "finalize",
+  "over_duration_rows": 0,
+  "processed_chunk_count": 14,
+  "profiles_ready": true,
+  "sections": {
+    "end_profiles_line": 42999,
+    "profiles_header_line": 15,
+    "profiles_line": 14,
+    "seizures_header_line": 43002,
+    "seizures_line": 43001
+  },
+  "source_kind": "csv",
+  "source_rows_processed": 3476072,
+  "source_signature": {
+    "chunk_rows": 250000,
+    "csv_source": {
+      "mtime_ns": 1721246952000000000,
+      "path": "/Users/dgoldenh/Documents/GitHub/sz_duration/STFullExportBIDMC_20240717.csv",
+      "size": 606414876
+    },
+    "date_end": "2024-07-17 00:00:00",
+    "date_start": "2007-11-01 00:00:00",
+    "max_duration_minutes": null,
+    "profiles_pickle": {
+      "mtime_ns": 1721332315000000000,
+      "path": "/Users/dgoldenh/Documents/GitHub/sz_duration/profiles.pkl",
+      "size": 9707566
+    },
+    "seizures_pickle": {
+      "mtime_ns": 1721332332000000000,
+      "path": "/Users/dgoldenh/Documents/GitHub/sz_duration/seizures.pkl",
+      "size": 1137848811
+    },
+    "source_kind": "csv",
+    "version": 2
+  },
+  "valid_rows_aggregated": 2180949,
+  "version": 2
+}

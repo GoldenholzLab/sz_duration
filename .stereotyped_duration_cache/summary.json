@@ -1,0 +1,12 @@
+{
+  "adult_group_count": 8618,
+  "adult_median_sd_minutes": 1.1260385964536506,
+  "child_group_count": 13106,
+  "child_median_sd_minutes": 0.8952270503749878,
+  "invalid_datetime_rows": 145097,
+  "max_duration_minutes": 1440.0,
+  "over_duration_rows": 58,
+  "processed_chunk_count": 14,
+  "source_rows_processed": 3476072,
+  "valid_rows_aggregated": 2180892
+}
