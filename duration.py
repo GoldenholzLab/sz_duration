@@ -188,6 +188,7 @@ def drawGraph(seizures_df, limx=10, agetype='',as_subplots=False,thetype='all',o
     index90 = np.abs(cumulative_probs - 0.9).argmin()
     cumulative_prob90 = cumulative_probs[index90]
     prob90_time = sorted_durations[index90]
+    conf_int = np.percentile(sorted_durations, [2.5, 97.5])
 
     # Create the plot
     if as_subplots==False:
@@ -213,7 +214,7 @@ def drawGraph(seizures_df, limx=10, agetype='',as_subplots=False,thetype='all',o
 
     #print(f'{cumulative_prob90} % at {prob90_time} minutes for {agetype}')
 
-    txt = f"all,{thetype},{agetype},{len(durations)},{len(filtered_sub['Unlinked_ID'].unique())},{prob90_time:.1f},{np.median(sorted_durations):.1f}"
+    txt = f"all,{thetype},{agetype},{len(durations)},{len(filtered_sub['Unlinked_ID'].unique())},{prob90_time:.1f},{np.median(sorted_durations):.1f},{conf_int[0]:.1f},{conf_int[1]:.1f}"
     print(txt)
     # Open the file in append mode, which creates the file if it does not exist
     with open(output_file, 'a') as file:
@@ -311,7 +312,8 @@ def drawGraph_population(seizures_df, limx=10, agetype='', as_subplots=False, th
     index90 = np.abs(cumulative_probs - 0.9).argmin()
     cumulative_prob90 = cumulative_probs[index90]
     prob90_time = sorted_durations[index90]
-
+    conf_int = np.percentile(sorted_durations, [2.5, 97.5])
+    
     # Create the plot
     if not as_subplots:
         plt.figure(figsize=(4, 6))
@@ -336,7 +338,7 @@ def drawGraph_population(seizures_df, limx=10, agetype='', as_subplots=False, th
 
     #plt.text(prob90_time, cumulative_prob90 * 100, f'{prob90_time}', ha='right', va='bottom')
     #print(f"Number of seizures: {len(durations)} for number of patients: {len(sub_df['Unlinked_ID'].unique())} {prob90_time} minutes for {agetype}")
-    txt = f"pickone,{thetype},{agetype},{len(durations)},{len(filtered_sub['Unlinked_ID'].unique())},{prob90_time:.1f},{np.median(sorted_durations):.1f}"
+    txt = f"pickone,{thetype},{agetype},{len(durations)},{len(filtered_sub['Unlinked_ID'].unique())},{prob90_time:.1f},{np.median(sorted_durations):.1f},{conf_int[0]:.1f},{conf_int[1]:.1f}"
     print(txt)
     # Open the file in append mode, which creates the file if it does not exist
     with open(output_file, 'a') as file:
