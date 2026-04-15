@@ -313,7 +313,7 @@ def drawGraph_population(seizures_df, limx=10, agetype='', as_subplots=False, th
     cumulative_prob90 = cumulative_probs[index90]
     prob90_time = sorted_durations[index90]
     conf_int = np.percentile(sorted_durations, [2.5, 97.5])
-    
+
     # Create the plot
     if not as_subplots:
         plt.figure(figsize=(4, 6))
@@ -1968,10 +1968,55 @@ def do_full_display(do_raw_read=False):
         'Tonic Clonic': IA
     })
     
-    # build a special FIGURE 1 with 4 parts
+    # build a specia Figure with 2 parts
 
     fname = 'Figure1-comboFig.png'
     output_file = 'Figure1-combofile.csv'
+    plt.figure(figsize=(6,3))
+    ax11 = plt.subplot(1,2,1)
+    thetype = 'all'
+    drawGraph(child_seizures,limx=20,agetype='child',as_subplots=True,thetype=thetype,output_file=output_file)
+    drawGraph(adult_seizures,limx=20,agetype='adult',as_subplots=True,thetype=thetype,output_file=output_file)
+    plt.xlim(0,20)
+    ax = plt.gca()  # Get the current Axes instance
+    ax.xaxis.set_minor_locator(AutoMinorLocator(2))  # Set minor ticks for x-axis, between the major ticks
+    ax.yaxis.set_minor_locator(AutoMinorLocator(2))  # Set minor ticks for y-axis, between the major ticks
+    # Add minor grid lines
+    ax.grid(True, linestyle=':', alpha=0.5, which='minor')  # Minor grid lines
+    #plt.xticks([])  # Remove x-axis tick labels
+    plt.ylabel('') # remove ylabel
+    plt.legend()
+    ax11.set_title('All by seizures')
+    #plt.xlabel('') # remove xlabel
+    ax12 = plt.subplot(1,2,2)
+    thetype = 'all'
+    xlimlist=(10,20)
+    drawGraph_population(child_seizures,agetype='child',as_subplots=True,limx= xlimlist[0], thetype=thetype,output_file=output_file)
+    drawGraph_population(adult_seizures,agetype='adult',as_subplots=True,limx= xlimlist[1], thetype=thetype,output_file=output_file)
+    ax12.set_title('All by patient')
+    plt.ylabel('') # remove ylabel
+    #plt.xticks([])  # Remove x-axis tick labels
+    #plt.xlabel('') # remove xlabel
+    #plt.xticks([])  # Remove x-axis tick labels
+    plt.tight_layout(rect=(0.02, 0.02, 1, 0.98))
+    # Add bold panel labels after tight_layout so they are not repositioned/clipped
+    for ax, label in zip([ax11, ax12], ['A', 'B']):
+        title_obj = ax.title
+        ax.text(
+            -0.02, 1.02, label,
+            transform=ax.transAxes,
+            fontsize=title_obj.get_fontsize() + 2,
+            fontweight='bold',
+            va='bottom', ha='right',
+            clip_on=False,
+        )
+    plt.savefig(fname,dpi=300)
+    plt.show()
+
+    # build a special FIGURE with 4 parts
+
+    fname = 'FigureS3-comboFig.png'
+    output_file = 'FigureS3-combofile.csv'
     plt.figure(figsize=(6,6))
     ax11 = plt.subplot(2,2,1)
     thetype = 'all'
