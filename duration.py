@@ -155,7 +155,7 @@ def age_cut(seizures_df, profiles_df):
     
     return child_seizures, adult_seizures
 
-def drawGraph(seizures_df, limx=10, agetype='',as_subplots=False,thetype='all',output_file='output_file.csv'):
+def drawGraph(seizures_df, limx=10, agetype='',as_subplots=False,thetype='all',output_file='output_file.csv',legendTXT=''):
     if thetype == 'all':
         sub_df = seizures_df.copy()
     else:
@@ -200,7 +200,10 @@ def drawGraph(seizures_df, limx=10, agetype='',as_subplots=False,thetype='all',o
     else:
         thecolor = 'red'
 
-    plt.plot(sorted_durations, cumulative_probs * 100, label=agetype, color=thecolor)
+    if legendTXT == '':
+        legendTXT = agetype
+
+    plt.plot(sorted_durations, cumulative_probs * 100, label=legendTXT, color=thecolor)
     
     plt.axhline(y=90, linestyle='--', linewidth=2, color='gray')
     plt.axvline(x=prob90_time, linestyle='--', linewidth=2, color=thecolor)
@@ -268,7 +271,7 @@ def drawGraph(seizures_df, limx=10, agetype='',as_subplots=False,thetype='all',o
         # Show the plot
         plt.show()
 
-def drawGraph_population(seizures_df, limx=10, agetype='', as_subplots=False, thetype='all',output_file='output_file.csv'):
+def drawGraph_population(seizures_df, limx=10, agetype='', as_subplots=False, thetype='all',output_file='output_file.csv', legendTXT=''):
     if thetype == 'all':
         sub_df = seizures_df.copy()
     else:
@@ -324,7 +327,10 @@ def drawGraph_population(seizures_df, limx=10, agetype='', as_subplots=False, th
     else:
         thecolor = 'red'
 
-    plt.plot(sorted_durations, cumulative_probs * 100, label=agetype, color=thecolor)
+    if legendTXT == '':
+        legendTXT = agetype
+        
+    plt.plot(sorted_durations, cumulative_probs * 100, label=legendTXT, color=thecolor)
     
     plt.axhline(y=90, linestyle='--', linewidth=2, color='gray')
     plt.axvline(x=prob90_time, linestyle='--', linewidth=2, color=thecolor)
@@ -1968,15 +1974,15 @@ def do_full_display(do_raw_read=False):
         'Tonic Clonic': IA
     })
     
-    # build a specia Figure with 2 parts
+    # build a special Figure with 2 parts
 
-    fname = 'Figure1-comboFig.png'
+    fname = 'Figure1-comboFig.eps'
     output_file = 'Figure1-combofile.csv'
     plt.figure(figsize=(6,3))
     ax11 = plt.subplot(1,2,1)
     thetype = 'all'
-    drawGraph(child_seizures,limx=20,agetype='child',as_subplots=True,thetype=thetype,output_file=output_file)
-    drawGraph(adult_seizures,limx=20,agetype='adult',as_subplots=True,thetype=thetype,output_file=output_file)
+    drawGraph(child_seizures,limx=20,agetype='child',as_subplots=True,thetype=thetype,output_file=output_file,legendTXT='Child n=1427494')
+    drawGraph(adult_seizures,limx=20,agetype='adult',as_subplots=True,thetype=thetype,output_file=output_file,legendTXT='Adult n=753461')
     plt.xlim(0,20)
     ax = plt.gca()  # Get the current Axes instance
     ax.xaxis.set_minor_locator(AutoMinorLocator(2))  # Set minor ticks for x-axis, between the major ticks
@@ -1984,17 +1990,19 @@ def do_full_display(do_raw_read=False):
     # Add minor grid lines
     ax.grid(True, linestyle=':', alpha=0.5, which='minor')  # Minor grid lines
     #plt.xticks([])  # Remove x-axis tick labels
-    plt.ylabel('') # remove ylabel
+    plt.ylabel('Percentage of seizures') # remove ylabel
     plt.legend()
+    
     ax11.set_title('All by seizures')
     #plt.xlabel('') # remove xlabel
     ax12 = plt.subplot(1,2,2)
     thetype = 'all'
     xlimlist=(10,20)
-    drawGraph_population(child_seizures,agetype='child',as_subplots=True,limx= xlimlist[0], thetype=thetype,output_file=output_file)
-    drawGraph_population(adult_seizures,agetype='adult',as_subplots=True,limx= xlimlist[1], thetype=thetype,output_file=output_file)
+    drawGraph_population(child_seizures,agetype='child',as_subplots=True,limx= xlimlist[0], thetype=thetype,output_file=output_file,legendTXT='Child n=10387')
+    drawGraph_population(adult_seizures,agetype='adult',as_subplots=True,limx= xlimlist[1], thetype=thetype,output_file=output_file,legendTXT='Adult n=8397')
     ax12.set_title('All by patient')
-    plt.ylabel('') # remove ylabel
+    plt.ylabel('Percentage of patients]') 
+    plt.legend()
     #plt.xticks([])  # Remove x-axis tick labels
     #plt.xlabel('') # remove xlabel
     #plt.xticks([])  # Remove x-axis tick labels
@@ -2020,8 +2028,8 @@ def do_full_display(do_raw_read=False):
     plt.figure(figsize=(6,6))
     ax11 = plt.subplot(2,2,1)
     thetype = 'all'
-    drawGraph(child_seizures,limx=20,agetype='child',as_subplots=True,thetype=thetype,output_file=output_file)
-    drawGraph(adult_seizures,limx=20,agetype='adult',as_subplots=True,thetype=thetype,output_file=output_file)
+    drawGraph(child_seizures,limx=20,agetype='child',as_subplots=True,thetype=thetype,output_file=output_file,legendTXT='Child n=10387')
+    drawGraph(adult_seizures,limx=20,agetype='adult',as_subplots=True,thetype=thetype,output_file=output_file,legendTXT='Adult n=8397')
     plt.xlim(0,20)
     ax = plt.gca()  # Get the current Axes instance
     ax.xaxis.set_minor_locator(AutoMinorLocator(2))  # Set minor ticks for x-axis, between the major ticks
